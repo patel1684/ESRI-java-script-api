@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Tiled map service</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/3.24/esri/css/esri.css">
+    <style>
+      html, body, #map {
+        height: 100%; width: 100%; margin: 0; padding: 0;
+      }
+    </style>
+
+    <script src="https://js.arcgis.com/3.24/"></script>
+    <script>
+      var map;
+
+      require(["esri/map", 
+        "esri/layers/ArcGISTiledMapServiceLayer", 
+        "esri/geometry/Point",
+        "esri/SpatialReference",
+		"esri/geometry/extent",
+        "dojo/domReady!"],
+        function(Map, ArcGISTiledMapServiceLayer, Point, SpatialReference,Extent) {
+          map = new Map("map", {
+            //center: new Point(-179.99999, -89.99999, new SpatialReference({ wkid: 4326}))
+			extent: new Extent (103.3538818359375, 1.1432647705078054, 104.29183959960938, 1.580657958984368, new SpatialReference({ wkid: 4326}))
+          });
+
+          var tiled = new ArcGISTiledMapServiceLayer("https://services.arcgisonline.com/arcgis/rest/services/ESRI_StreetMap_World_2D/MapServer");
+          map.addLayer(tiled);
+        }
+      );
+    </script>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+</html>
